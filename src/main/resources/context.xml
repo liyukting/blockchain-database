@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+	<!-- Enable Annotation Configuration in order to automatically scan controllers -->
+	<context:annotation-config />
+	<!-- Load properties -->
+	<context:property-placeholder
+		location="classpath:application.properties" />
+	<!-- Search for Rest Resources and configure them automatically -->
+	<context:component-scan
+		base-package="com.blockchain.rest" />
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="username" value="root" />
+		<property name="password" value="949466" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/blockchain_dev" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="myPU" />
+		<property name="jpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="userDao" class="com.blockchain.dao.user.UserDaoImpl"></bean>
+	<bean id="accessTokenDao"
+		class="com.blockchain.dao.accesstoken.AccessTokenDaoImpl"></bean>
+	<bean id="userService" class="com.blockchain.service.UserServiceImpl">
+		<constructor-arg ref="userDao" />
+		<constructor-arg ref="accessTokenDao" />
+	</bean>
+
+
+</beans>

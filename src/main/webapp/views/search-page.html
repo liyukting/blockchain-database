@@ -1,0 +1,37 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link href="css/search_result.css" rel="stylesheet">
+
+<div class="search-result container">
+	<label>Search:</label>
+	<input type="text" ng-model="search">
+	<hr>
+    <hgroup class="mb20">
+		<h1>Search Results</h1>
+	</hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+		<article  ng-repeat="helper in helperList | filter:search" class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="https://image.flaticon.com/icons/png/512/20/20863.png" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+				<ul class="meta-search">
+					<li><span>Working Experience: {{ helper.isEmployed }}</span></li>
+					<li><span>Gender: {{ helper.helperGender }}</span></li>
+					<li><span>Nationality: {{ helper.helperNation }}</span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+				<h3><a href="#" title="">{{ helper.helperName }}</a></h3>
+				<p>{{ helper.helperSelfIntro }}</p>						
+                <span class="plus"><a href="#" title="Follow"><i class="glyphicon glyphicon-plus"></i></a></span>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+
+	</section>
+</div>
